@@ -2,14 +2,16 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/aemaximova/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/aemaximova/frontend-project-46/actions)",
-  "main": "index.js",
+  "main": "bin/gendiff.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "commander": "^11.1.0"
+    "commander": "^11.1.0",
+    "js-yaml": "^4.1.0",
+    "lodash": "^4.17.21"
   },
   "type": "module",
   "bin": {

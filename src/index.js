@@ -68,7 +68,7 @@ const genDiff = (filepath1, filepath2) => {
     absolutePath2 = path.resolve(process.cwd(), filepath2);
   }
   const result = parse(absolutePath1, absolutePath2);
-  console.log(result);
+  return result;
 };
 
 export default genDiff;

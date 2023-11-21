@@ -8,7 +8,7 @@ program
   .version('1.0.0')
   .arguments('<filepath1> <filepath2>')
   .action((filepath1, filepath2) => {
-    genDiff(filepath1, filepath2);
+    console.log(genDiff(filepath1, filepath2));
   })
   .helpOption('-h, --help', 'output usage information')
   .option('-f, --format <type>', 'output format')

@@ -18,6 +18,20 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+      - name: Run ESLint
+        run: make lint
+
       - name: Hexlet project check
         uses: hexlet/project-action@release
         with:

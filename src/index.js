@@ -20,8 +20,8 @@ const getOutput = (file1, file2) => {
   const uniqueKeys = _.sortBy(Object.keys(combinedKeys));
   const result = uniqueKeys.reduce((acc, key) => {
     let newAcc = acc;
-    if (Object.hasOwn(file1, key)) {
-      if (Object.hasOwn(file2, key)) {
+    if (file1.hasOwnProperty(key)) {
+      if (file2.hasOwnProperty(key)) {
         if (file1[key] === file2[key]) {
           newAcc += `${' '.repeat(4)}${key}: ${file1[key]}\n`;
         } else {

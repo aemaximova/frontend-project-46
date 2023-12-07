@@ -32,7 +32,7 @@ const plain = (diff, path = '') => {
       if (children) {
         return `${plain(children, currentPath)}`;
       }
-      if (Object.hasOwn(value, 'value') || Object.hasOwn(value, 'oldValue')) {
+      if (_.has(value, 'value') || _.has(value, 'oldValue')) {
         switch (status) {
           case 'changed':
             return `Property '${buildPath(path, key)}' was updated. From ${stringify(oldValue)} to ${stringify(newValue)}`;

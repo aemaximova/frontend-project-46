@@ -1,3 +1,8 @@
+# Включает поддержку конструкции import.meta.url
+rules:
+  no-underscore-dangle: [2, { "allow": ["__filename", "__dirname"] }]
+  no-console: off
+  import/extensions: off
 env:
   browser: true
   commonjs: true
@@ -5,4 +10,3 @@ env:
 extends: airbnb-base
 parserOptions:
   ecmaVersion: latest
-rules: {}

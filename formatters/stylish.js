@@ -46,13 +46,6 @@ const stylish = (data) => {
           default:
             return `${indent1}${key}: ${stringify(singleValue, depth + 1)}\n`;
         }
-
-        // const statusStr = (status === 'changed') ? `${indent2}- ${key}:
-        // ${stringify(oldValue, depth + 1)}\n${indent2}+ ${key}:
-        // ${stringify(newValue, depth + 1)}\n`
-        //   : (status === 'deleted') ? `${indent2}- ${key}: ${stringify(singleValue, depth + 1)}\n`
-        //   : (status === 'added') ? `${indent2}+ ${key}: ${stringify(singleValue, depth + 1)}\n`
-        //   : `${indent1}${key}: ${stringify(singleValue, depth + 1)}\n`
       });
     return lines.join('');
   };

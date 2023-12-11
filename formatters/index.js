@@ -1,9 +1,16 @@
 import stylish from './stylish.js';
 import plain from './plain.js';
+import json from './json.js';
 
 const formatter = (formatName, diff) => {
-  const a = formatName === 'stylish' ? stylish(diff) : plain(diff);
-  return a;
+  switch (formatName) {
+    case 'plain':
+      return plain(diff);
+    case 'json':
+      return json(diff);
+    default:
+      return stylish(diff);
+  }
 };
 
 export default formatter;

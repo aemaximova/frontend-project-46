@@ -23,12 +23,6 @@ const plain = (diff, path = '') => {
       const {
         status, children, oldValue, newValue, value: singleValue,
       } = value;
-      // const statusStr = (status === 'changed') ? `Property '${buildPath(path, key)}' was updated.
-      // From ${stringify(oldValue)} to ${stringify(newValue)}`
-      //   : (status === 'deleted') ? `Property '${buildPath(path, key)}' was removed`
-      //   : (status === 'added') ? `'${buildPath(path, key)}' was added with value
-      // ${stringify(singleValue)}`
-      //   : [];
       if (children) {
         return `${plain(children, currentPath)}`;
       }

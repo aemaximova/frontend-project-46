@@ -1,5 +1,12 @@
 import _ from 'lodash';
 
+const stringify = (value) => {
+  if (_.isObject(value)) {
+    return JSON.parse(JSON.stringify(value));
+  }
+  return value;
+};
+
 const json = (diff, path = '') => {
   const lines = Object
     .entries(diff)
@@ -15,11 +22,11 @@ const json = (diff, path = '') => {
       if (_.has(value, 'value') || _.has(value, 'oldValue')) {
         switch (status) {
           case 'changed':
-            return { op: 'replace', path: `${path}/${key}`, value: newValue };
+            return { op: 'replace', path: `${path}/${key}`, value: stringify(newValue) };
           case 'deleted':
             return { op: 'remove', path: `${path}/${key}` };
           case 'added':
-            return { op: 'add', path: `${path}/${key}`, value: singleValue };
+            return { op: 'add', path: `${path}/${key}`, value: stringify(singleValue) };
           default:
             return [];
         }

@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 const stringify = (value) => {
   if (_.isObject(value)) {
-    return JSON.parse(JSON.stringify(value));
+    return JSON.stringify(value);
   }
   return value;
 };
@@ -33,7 +33,7 @@ const json = (diff, path = '') => {
       }
       return [];
     });
-  return lines;
+  return JSON.stringify(lines);
 };
 
 export default json;

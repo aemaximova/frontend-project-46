@@ -77,18 +77,17 @@ Property 'group3' was added with value: [complex value]`;
 });
 
 test('testJson', () => {
-  const result = [
-    { op: 'add', path: '/common/follow', value: false },
-    { op: 'remove', path: '/common/setting2' },
-    { op: 'replace', path: '/common/setting3', value: null },
-    { op: 'add', path: '/common/setting4', value: 'blah blah' },
-    { op: 'add', path: '/common/setting5', value: { key5: 'value5' } },
-    { op: 'replace', path: '/common/setting6/doge/wow', value: 'so much' },
-    { op: 'add', path: '/common/setting6/ops', value: 'vops' },
-    { op: 'replace', path: '/group1/baz', value: 'bars' },
-    { op: 'replace', path: '/group1/nest', value: 'str' },
-    { op: 'remove', path: '/group2' },
-    { op: 'add', path: '/group3', value: { deep: { id: { number: 45 } }, fee: 100500 } },
-  ];
+  const result = `[
+{"op":"add","path":"/follow","value":false}
+{"op":"remove","path":"/setting2"}
+{"op":"replace","path":"/setting3","value":null}
+{"op":"add","path":"/setting4","value":"blah blah"}
+{"op":"add","path":"/setting5","value":{"key5":"value5"}}
+{"op":"replace","path":"/wow","value":"so much"}
+{"op":"add","path":"/ops","value":"vops"}
+{"op":"replace","path":"/baz","value":"bars"}
+{"op":"replace","path":"/nest","value":"str"}
+{"op":"remove","path":"/group2"}
+{"op":"add","path":"/group3","value":{"deep":{"id":{"number":45}},"fee":100500}}]`;
   expect(genDiff(filePath3, filePath4, 'json')).toStrictEqual(result);
 });

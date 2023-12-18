@@ -26,7 +26,7 @@ const json = (diff, path = '') => {
       }
       return [];
     });
-  return lines;
+  return JSON.stringify(lines);
 };
 
 export default json;

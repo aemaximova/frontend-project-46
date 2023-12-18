@@ -15,18 +15,18 @@ const json = (diff, path = '') => {
       if (_.has(value, 'value') || _.has(value, 'oldValue')) {
         switch (status) {
           case 'changed':
-            return { op: 'replace', path: `${path}/${key}`, value: newValue };
+            return JSON.stringify({ op: 'replace', path: `${path}/${key}`, value: newValue });
           case 'deleted':
-            return { op: 'remove', path: `${path}/${key}` };
+            return JSON.stringify({ op: 'remove', path: `${path}/${key}` });
           case 'added':
-            return { op: 'add', path: `${path}/${key}`, value: singleValue };
+            return JSON.stringify({ op: 'add', path: `${path}/${key}`, value: singleValue });
           default:
             return [];
         }
       }
       return [];
     });
-  return JSON.stringify(lines);
+  return lines;
 };
 
 export default json;

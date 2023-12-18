@@ -27,9 +27,9 @@ const json = (data, path = '') => {
         }
         return [];
       });
-    return lines.join('');
+    return lines.join('\n');
   };
-  return `[${iter(data)}]`;
+  return `[\n${iter(data)}]`;
 };
 
 export default json;

@@ -26,7 +26,7 @@ const json = (diff, path = '') => {
       }
       return [];
     });
-  return lines;
+  return `[${lines.join('\n')}]`;
 };
 
 export default json;

@@ -3,13 +3,10 @@ import yaml from 'js-yaml';
 import path from 'path';
 
 const parse = (data, format) => {
-  let result;
   if (format === '.json') {
-    result = JSON.parse(data);
-  } else if (format === '.yml') {
-    result = yaml.load(data);
+    return JSON.parse(data);
   }
-  return result;
+  return yaml.load(data);
 };
 
 const buildCart = (filepath) => {

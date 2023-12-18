@@ -27,7 +27,7 @@ const json = (data, path = '') => {
         }
         return [];
       });
-    return lines.join('\n');
+    return lines.join(',');
   };
   return `[\n${iter(data)}]`;
 };

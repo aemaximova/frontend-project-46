@@ -8,24 +8,29 @@ const getAbsolutePath = (filepath) => {
   return absPath;
 };
 
+const initTree = (file1, file2, key, getDiff) => {
+  const value1 = file1[key];
+  const value2 = file2[key];
+  if (_.isEqual(value1, value2)) {
+    return { status: 'unchanged', value: value1 };
+  }
+  if (!_.has(file1, key)) {
+    return { status: 'added', value: value2 };
+  }
+  if (!_.has(file2, key)) {
+    return { status: 'deleted', value: value1 };
+  }
+  if (_.isObject(value1) && _.isObject(value2)) {
+    return { status: 'unchanged', children: getDiff(value1, value2) };
+  }
+  return { status: 'changed', oldValue: value1, newValue: value2 };
+};
+
 const getDiff = (file1, file2) => {
   const mergedKeys = _.sortBy(_.union(Object.keys(file1), Object.keys(file2)));
   const result = mergedKeys.reduce((acc, key) => {
-    const value1 = file1[key];
-    const value2 = file2[key];
-    const newAcc = _.cloneDeep(acc);
-    if (_.isEqual(value1, value2)) {
-      newAcc[key] = { status: 'unchanged', value: value1 };
-    } else if (!_.has(file1, key)) {
-      newAcc[key] = { status: 'added', value: value2 };
-    } else if (!_.has(file2, key)) {
-      newAcc[key] = { status: 'deleted', value: value1 };
-    } else if (_.isObject(value1) && _.isObject(value2)) {
-      newAcc[key] = { status: 'unchanged', children: getDiff(value1, value2) };
-    } else {
-      newAcc[key] = { status: 'changed', oldValue: value1, newValue: value2 };
-    }
-    return newAcc;
+    acc[key] = initTree(file1, file2, key, getDiff);
+    return acc;
   }, {});
   return result;
 };

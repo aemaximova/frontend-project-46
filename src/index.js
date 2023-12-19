@@ -29,9 +29,8 @@ const initTree = (file1, file2, key, getDiff) => {
 const getDiff = (file1, file2) => {
   const mergedKeys = _.sortBy(_.union(Object.keys(file1), Object.keys(file2)));
   const result = mergedKeys.reduce((acc, key) => {
-    const newAcc = _.cloneDeep(acc);
-    newAcc[key] = initTree(file1, file2, key, getDiff);
-    return newAcc;
+    const temp = { [key]: initTree(file1, file2, key, getDiff) };
+    return { ...acc, ...temp };
   }, {});
   return result;
 };

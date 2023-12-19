@@ -13,18 +13,19 @@ const getDiff = (file1, file2) => {
   const result = mergedKeys.reduce((acc, key) => {
     const value1 = file1[key];
     const value2 = file2[key];
+    const newAcc = _.cloneDeep(acc);
     if (_.isEqual(value1, value2)) {
-      acc[key] = { status: 'unchanged', value: value1 };
+      newAcc[key] = { status: 'unchanged', value: value1 };
     } else if (!_.has(file1, key)) {
-      acc[key] = { status: 'added', value: value2 };
+      newAcc[key] = { status: 'added', value: value2 };
     } else if (!_.has(file2, key)) {
-      acc[key] = { status: 'deleted', value: value1 };
+      newAcc[key] = { status: 'deleted', value: value1 };
     } else if (_.isObject(value1) && _.isObject(value2)) {
-      acc[key] = { status: 'unchanged', children: getDiff(value1, value2) };
+      newAcc[key] = { status: 'unchanged', children: getDiff(value1, value2) };
     } else {
-      acc[key] = { status: 'changed', oldValue: value1, newValue: value2 };
+      newAcc[key] = { status: 'changed', oldValue: value1, newValue: value2 };
     }
-    return acc;
+    return newAcc;
   }, {});
   return result;
 };

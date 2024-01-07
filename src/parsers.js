@@ -1,18 +1,12 @@
-import { readFileSync } from 'node:fs';
 import yaml from 'js-yaml';
-import path from 'path';
 
 const parse = (data, format) => {
-  if (format === '.json') {
-    return JSON.parse(data);
+  if (format === 'yml' || format === 'yaml') {
+    return yaml.load(data);
   }
-  return yaml.load(data);
+  return JSON.parse(data);
 };
 
-const buildCart = (filepath) => {
-  const data = readFileSync(filepath, 'utf-8');
-  const format = path.extname(filepath);
-  return parse(data, format);
-};
+const buildCart = (data, format) => parse(data, format);
 
 export default buildCart;

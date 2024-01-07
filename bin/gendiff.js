@@ -10,6 +10,5 @@ program
     const formatName = options.format;
     console.log(genDiff(filepath1, filepath2, formatName));
   })
-  .helpOption('-h, --help', 'output usage information')
   .option('-f, --format <type>', 'output format (default: "stylish")', 'stylish')
   .parse(process.argv);

@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { test, expect } from '@jest/globals';
@@ -12,83 +13,21 @@ const filePath1 = getFixturePath('file1.json');
 const filePath2 = getFixturePath('file2.json');
 const filePath3 = getFixturePath('file1.yml');
 const filePath4 = getFixturePath('file2.yml');
+const giffPath1 = getFixturePath('diff_stylish.txt');
+const giffPath2 = getFixturePath('diff_plain.txt');
+const giffPath3 = getFixturePath('diff_json.txt');
 
 test('testStylish', () => {
-  const result = `{
-    common: {
-      + follow: false
-        setting1: Value 1
-      - setting2: 200
-      - setting3: true
-      + setting3: null
-      + setting4: blah blah
-      + setting5: {
-            key5: value5
-        }
-        setting6: {
-            doge: {
-              - wow: 
-              + wow: so much
-            }
-            key: value
-          + ops: vops
-        }
-    }
-    group1: {
-      - baz: bas
-      + baz: bars
-        foo: bar
-      - nest: {
-            key: value
-        }
-      + nest: str
-    }
-  - group2: {
-        abc: 12345
-        deep: {
-            id: 45
-        }
-    }
-  + group3: {
-        deep: {
-            id: {
-                number: 45
-            }
-        }
-        fee: 100500
-    }
-}`;
-  expect(genDiff(filePath1, filePath4, 'stylish')).toBe(result);
+  const result = readFileSync(giffPath1, 'utf8');
+  expect(genDiff(filePath1, filePath4, 'stylish')).toEqual(result);
 });
 
 test('testPlain', () => {
-  const result = `Property 'common.follow' was added with value: false
-Property 'common.setting2' was removed
-Property 'common.setting3' was updated. From true to null
-Property 'common.setting4' was added with value: 'blah blah'
-Property 'common.setting5' was added with value: [complex value]
-Property 'common.setting6.doge.wow' was updated. From '' to 'so much'
-Property 'common.setting6.ops' was added with value: 'vops'
-Property 'group1.baz' was updated. From 'bas' to 'bars'
-Property 'group1.nest' was updated. From [complex value] to 'str'
-Property 'group2' was removed
-Property 'group3' was added with value: [complex value]`;
-  expect(genDiff(filePath3, filePath2, 'plain')).toBe(result);
+  const result = readFileSync(giffPath2, 'utf8');
+  expect(genDiff(filePath3, filePath2, 'plain')).toEqual(result);
 });
 
 test('testJson', () => {
-  const result = [
-    { op: 'add', path: '/follow', value: false },
-    { op: 'remove', path: '/setting2' },
-    { op: 'replace', path: '/setting3', value: null },
-    { op: 'add', path: '/setting4', value: 'blah blah' },
-    { op: 'add', path: '/setting5', value: { key5: 'value5' } },
-    { op: 'replace', path: '/wow', value: 'so much' },
-    { op: 'add', path: '/ops', value: 'vops' },
-    { op: 'replace', path: '/baz', value: 'bars' },
-    { op: 'replace', path: '/nest', value: 'str' },
-    { op: 'remove', path: '/group2' },
-    { op: 'add', path: '/group3', value: { deep: { id: { number: 45 } }, fee: 100500 } },
-  ];
-  expect(JSON.parse(genDiff(filePath3, filePath4, 'json'))).toStrictEqual(result);
+  const result = readFileSync(giffPath3, 'utf8');
+  expect(genDiff(filePath3, filePath4, 'json')).toStrictEqual(result);
 });
